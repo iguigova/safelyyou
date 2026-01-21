@@ -27,7 +27,7 @@ type DeviceStats struct {
 // Uses sync.RWMutex to allow concurrent reads while ensuring exclusive writes.
 type Store struct {
 	mu      sync.RWMutex
-	devices map[string]*DeviceStats
+	devices map[string]*DeviceStats // protected by mu
 }
 
 // NewStore creates an empty store.
