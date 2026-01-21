@@ -16,6 +16,14 @@ Track all design decisions in the "Design Decisions" section of `IMPLEMENTATION_
 - State which option was chosen and why
 - This supports defending the implementation in presentation
 
+## Code Quality
+
+After making changes to Go code, always run the linter:
+```bash
+golangci-lint run
+```
+Fix any issues before considering the change complete.
+
 ## Implementation Log
 
 After each response, update `IMPLEMENTATION_LOG.md` with:

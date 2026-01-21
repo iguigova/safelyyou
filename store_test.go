@@ -23,12 +23,12 @@ func TestLoadDevicesFromCSV(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer os.Remove(tmpFile.Name())
+	defer func() { _ = os.Remove(tmpFile.Name()) }()
 
 	if _, err := tmpFile.WriteString(content); err != nil {
 		t.Fatal(err)
 	}
-	tmpFile.Close()
+	_ = tmpFile.Close()
 
 	s := NewStore()
 	if err := s.LoadDevicesFromCSV(tmpFile.Name()); err != nil {

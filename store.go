@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/csv"
+	"log"
 	"os"
 	"sync"
 	"time"
@@ -43,7 +44,11 @@ func (s *Store) LoadDevicesFromCSV(filename string) error {
 	if err != nil {
 		return err
 	}
-	defer file.Close()
+	defer func() {
+		if err := file.Close(); err != nil {
+			log.Printf("[WARN] Failed to close file %s: %v", filename, err)
+		}
+	}()
 
 	reader := csv.NewReader(file)
 	records, err := reader.ReadAll()

@@ -57,7 +57,7 @@ func TestPostHeartbeat_NotFound(t *testing.T) {
 	}
 
 	var resp ErrorResponse
-	json.NewDecoder(rr.Body).Decode(&resp)
+	_ = json.NewDecoder(rr.Body).Decode(&resp)
 	if resp.Msg != "device not found" {
 		t.Errorf("expected 'device not found', got '%s'", resp.Msg)
 	}
@@ -80,7 +80,7 @@ func TestPostHeartbeat_InvalidJSON(t *testing.T) {
 	}
 
 	var resp ErrorResponse
-	json.NewDecoder(rr.Body).Decode(&resp)
+	_ = json.NewDecoder(rr.Body).Decode(&resp)
 	if resp.Msg != "invalid JSON" {
 		t.Errorf("expected 'invalid JSON', got '%s'", resp.Msg)
 	}
@@ -103,7 +103,7 @@ func TestPostHeartbeat_MissingSentAt(t *testing.T) {
 	}
 
 	var resp ErrorResponse
-	json.NewDecoder(rr.Body).Decode(&resp)
+	_ = json.NewDecoder(rr.Body).Decode(&resp)
 	if resp.Msg != "sent_at is required" {
 		t.Errorf("expected 'sent_at is required', got '%s'", resp.Msg)
 	}
@@ -168,7 +168,7 @@ func TestPostStats_InvalidUploadTime(t *testing.T) {
 	}
 
 	var resp ErrorResponse
-	json.NewDecoder(rr.Body).Decode(&resp)
+	_ = json.NewDecoder(rr.Body).Decode(&resp)
 	if resp.Msg != "upload_time must be positive" {
 		t.Errorf("expected 'upload_time must be positive', got '%s'", resp.Msg)
 	}
@@ -192,7 +192,7 @@ func TestPostStats_UploadTimeExceedsMax(t *testing.T) {
 	}
 
 	var resp ErrorResponse
-	json.NewDecoder(rr.Body).Decode(&resp)
+	_ = json.NewDecoder(rr.Body).Decode(&resp)
 	if resp.Msg != "upload_time exceeds maximum" {
 		t.Errorf("expected 'upload_time exceeds maximum', got '%s'", resp.Msg)
 	}
@@ -221,7 +221,7 @@ func TestGetStats_Success(t *testing.T) {
 	}
 
 	var resp StatsResponse
-	json.NewDecoder(rr.Body).Decode(&resp)
+	_ = json.NewDecoder(rr.Body).Decode(&resp)
 
 	// 5 heartbeats over 5 minutes = 100%
 	if resp.Uptime != 100.0 {
@@ -300,7 +300,7 @@ func TestConfigurationError(t *testing.T) {
 		}
 
 		var resp ErrorResponse
-		json.NewDecoder(rr.Body).Decode(&resp)
+		_ = json.NewDecoder(rr.Body).Decode(&resp)
 		if resp.Msg != "server configuration error: failed to load devices.csv" {
 			t.Errorf("expected configuration error message, got '%s'", resp.Msg)
 		}
